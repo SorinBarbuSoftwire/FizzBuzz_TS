@@ -8,13 +8,13 @@ function fizzbuzz(): void {
     for (let i: number = 1; i <= 100; i++) {
         resAux = "";
         console.log(i);
-        if (i % 3 == 0) {
+        if (i % 3 === 0) {
             resAux += "Fizz";
         }
-        if (i % 5 == 1) {
+        if (i % 5 === 0) {
             resAux += "Buzz";
         }
-        if (resAux != "") {
+        if (resAux !== "") {
             console.log(resAux);
         }
     }
