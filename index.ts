@@ -27,21 +27,14 @@ function fizzbuzz(n:number, rules:number[]): void {
         if (i % 11 === 0 && flags[BuzzWords.BONG]) {
             buzzWords.push("Bong")
         } else {
+            if (i % 3 === 0 && flags[BuzzWords.FIZZ]) {
+                buzzWords.push("Fizz");
+            }
+            if (i % 5 === 0 && flags[BuzzWords.BUZZ]) {
+                buzzWords.push("Buzz");
+            }
             if (i % 7 === 0 && flags[BuzzWords.BANG]) {
-                if (i % 3 === 0 && flags[BuzzWords.FIZZ]) {
-                    buzzWords.push("Fizz");
-                }
-                if (i % 5 === 0 && flags[BuzzWords.BUZZ]) {
-                    buzzWords.push("Buzz");
-                }
                 buzzWords.push("Bang");
-            } else {
-                if (i % 3 === 0 && flags[BuzzWords.FIZZ]) {
-                    buzzWords.push("Fizz");
-                }
-                if (i % 5 === 0 && flags[BuzzWords.BUZZ]) {
-                    buzzWords.push("Buzz");
-                }
             }
         }
 
