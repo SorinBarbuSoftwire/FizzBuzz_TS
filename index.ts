@@ -4,19 +4,33 @@ import {resourceLimits} from "worker_threads";
 function fizzbuzz(): void {
     console.log("Hello, World!");
     // Put your code here...
-    let resAux: string;
+    let resStr: string;
     for (let i: number = 1; i <= 100; i++) {
-        resAux = "";
-        console.log(i);
-        if (i % 3 === 0) {
-            resAux += "Fizz";
+        resStr = "";
+
+        if (i % 11 === 0) {
+            process.stdout.write("Bong");
         }
-        if (i % 5 === 0) {
-            resAux += "Buzz";
+        else {
+            if (i % 7 !== 0) {
+                process.stdout.write(i.toString() + ": ");
+            }
+
+            if (i % 3 === 0) {
+                resStr += "Fizz";
+            }
+            if (i % 5 === 0) {
+                resStr += "Buzz";
+            }
+            if (i % 7 === 0) {
+                resStr += "Bang"
+            }
+            if (resStr !== "") {
+                process.stdout.write(resStr);
+            }
         }
-        if (resAux !== "") {
-            console.log(resAux);
-        }
+
+        process.stdout.write("\n");
     }
 }
 
