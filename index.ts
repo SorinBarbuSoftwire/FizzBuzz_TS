@@ -1,6 +1,4 @@
 // This is our main function
-import {resourceLimits} from "worker_threads";
-import {beforeEach} from "node:test";
 import * as readline from 'readline';
 
 const rl = readline.createInterface({
