@@ -6,62 +6,80 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-function fizzbuzz(n:number): void {
+const FIZZ = 0;
+const BUZZ = 1;
+const BANG = 2;
+const BONG = 3;
+const FEZZ = 4;
+const REV = 5;
+
+function fizzbuzz(n:number, rules:number[]): void {
     // Put your code here...
-    let myDict : {[key : number] : string} = {};
-    let index: number;
+    // initial flags
+    let flags: boolean[] = [false, false, false, false, false, false];
+    // update flags based on received rules
+    for (let i = 0; i < rules.length; i++) {
+        if (0 <= rules[i] && rules[i] <= 5)
+            flags[rules[i]] = true;
+    }
 
     for (let i: number = 1; i <= n; i++) {
-        let resStrs: string[] = [];
-        let resStr: string = "";
+        let buzzWords: string[] = [];
+        let resFinal: string = "";
 
-        if (i % 11 === 0) {
-            resStrs.push("Bong");
-            if (i % 13 === 0) {
-                resStrs.splice(0, 0, "Fezz");
-            }
+        if (i % 11 === 0 && flags[BONG]) {
+            buzzWords.push("Bong")
         } else {
-            if (i % 7 !== 0 && i % 13 !== 0) {
-                resStr = i.toString() + ": ";
-            }
-
-            if (i % 3 === 0) {
-                resStrs.push("Fizz");
-            }
-            if (i % 5 === 0) {
-                resStrs.push("Buzz");
-            }
-            if (i % 7 === 0) {
-                resStrs.push("Bang");
-            }
-            if (i % 13 === 0) {
-                index = -1;
-                for (let i: number = 0; i < resStrs.length; i++) {
-                    if (resStrs[i].indexOf("B") === 0) {
-                        index = i;
-                        break;
-                    }
-                }
-                if (index != -1)
-                    resStrs.splice(index, 0, "Fezz");
-                else
-                    resStrs.push("Fezz");
+            if (i % 7 === 0 && flags[BANG]) {
+                if (i % 3 === 0 && flags[FIZZ])
+                    buzzWords.push("Fizz");
+                if (i % 5 === 0 && flags[BUZZ])
+                    buzzWords.push("Buzz");
+                buzzWords.push("Bang");
+            } else {
+                if (i % 3 === 0 && flags[FIZZ])
+                    buzzWords.push("Fizz");
+                if (i % 5 === 0 && flags[BUZZ])
+                    buzzWords.push("Buzz");
             }
         }
 
-        if (i % 17 == 0)
-            resStrs.reverse();
-
-        for (let j:number = 0; j < resStrs.length; j++) {
-            resStr += resStrs[j]
+        if (i % 13 === 0 && flags[FEZZ]) {
+            let index:number;
+            for (index = 0; index < buzzWords.length; index++) {
+                if (buzzWords[index].indexOf("B") === 0)
+                    break;
+            }
+            buzzWords.splice(index, 0, "Fezz");
         }
 
-        console.log(resStr)
+        if (i % 17 == 0 && flags[REV]) {
+            buzzWords.reverse();
+        }
+
+        // concatenate the buzzwords
+        for (let i: number = 0; i < buzzWords.length; i++) {
+            resFinal += buzzWords[i];
+        }
+
+        // check if there are any buzzwords
+        if (buzzWords.length === 0)
+            console.log(i);
+        else
+            console.log(resFinal);
     }
 }
 
-rl.question("", (answer) => {
-    let nr:number = parseInt(answer);
-    fizzbuzz(nr);
+fizzbuzz(255, [FIZZ, BUZZ, BANG, BONG, FEZZ, REV]);
+
+let n: number;
+let count: number;
+rl.question("FIZZ = 0\nnBUZZ = 1\nBANG = 2\nBONG = 3\nFEZZ = 4\nREV = 5\nHow many numbers?\n", (answer) => {
+    n = parseInt(answer);
+    rl.close();
+});
+
+rl.question("How many buzz words?\n", (answer) => {
+    count = parseInt(answer);
     rl.close();
 });
