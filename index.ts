@@ -1,12 +1,19 @@
 // This is our main function
 import {resourceLimits} from "worker_threads";
 import {beforeEach} from "node:test";
+import * as readline from 'readline';
 
-function fizzbuzz(): void {
-    console.log("Hello, World!");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function fizzbuzz(n:number): void {
     // Put your code here...
+    let myDict : {[key : number] : string} = {};
     let index: number;
-    for (let i: number = 1; i <= 255; i++) {
+
+    for (let i: number = 1; i <= n; i++) {
         let resStrs: string[] = [];
         let resStr: string = "";
 
@@ -55,5 +62,8 @@ function fizzbuzz(): void {
     }
 }
 
-// Now, we run the main function:
-fizzbuzz();
+rl.question("", (answer) => {
+    let nr:number = parseInt(answer);
+    fizzbuzz(nr);
+    rl.close();
+});
