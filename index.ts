@@ -1,10 +1,5 @@
 // This is our main function
-import * as readline from 'readline';
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+import * as rl from 'readline-sync';
 
 enum BuzzWords {
     FIZZ,
@@ -77,41 +72,26 @@ function fizzbuzz(n:number, rules:number[]): void {
     }
 }
 
-let count: number;
+let count: number = parseInt(rl.question("How many numbers?\n"));
 const rules: number[] = [];
-rl.question("How many numbers?\n", (answer1) => {
-    rl.question("Select buzzwords [y/n]:\nFIZZ?\n", (answer2) => {
-        rl.question("BUZZ?\n", (answer3) => {
-            rl.question("BANG?\n", (answer4) => {
-                rl.question("BONG?\n", (answer5) => {
-                    rl.question("FEZZ?\n", (answer6) => {
-                        rl.question("REV?\n", (answer7) => {
-                            count = parseInt(answer1);
-                            if (answer2 === "y") {
-                                rules.push(BuzzWords.FIZZ);
-                            }
-                            if (answer3 === "y") {
-                                rules.push(BuzzWords.BUZZ);
-                            }
-                            if (answer4 === "y") {
-                                rules.push(BuzzWords.BANG);
-                            }
-                            if (answer5 === "y") {
-                                rules.push(BuzzWords.BONG);
-                            }
-                            if (answer6 === "y") {
-                                rules.push(BuzzWords.FEZZ);
-                            }
-                            if (answer7 === "y") {
-                                rules.push(BuzzWords.REV);
-                            }
 
-                            fizzbuzz(count, rules);
-                            rl.close();
-                        });
-                    });
-                });
-            });
-        });
-    });
-});
+if (rl.question("Fizz? [y/n] ") === "y") {
+    rules.push(BuzzWords.FIZZ);
+}
+if (rl.question("Buzz? [y/n] ") === "y") {
+    rules.push(BuzzWords.BUZZ);
+}
+if (rl.question("Bang? [y/n] ") === "y") {
+    rules.push(BuzzWords.BANG);
+}
+if (rl.question("Bong? [y/n] ") === "y") {
+    rules.push(BuzzWords.BONG);
+}
+if (rl.question("Feez? [y/n] ") === "y") {
+    rules.push(BuzzWords.FEZZ);
+}
+if (rl.question("Rev? [y/n] ") === "y") {
+    rules.push(BuzzWords.REV);
+}
+
+fizzbuzz(count, rules);
