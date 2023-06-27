@@ -70,16 +70,35 @@ function fizzbuzz(n:number, rules:number[]): void {
     }
 }
 
-fizzbuzz(255, [FIZZ, BUZZ, BANG, BONG, FEZZ, REV]);
-
 let n: number;
-let count: number;
-rl.question("FIZZ = 0\nnBUZZ = 1\nBANG = 2\nBONG = 3\nFEZZ = 4\nREV = 5\nHow many numbers?\n", (answer) => {
-    n = parseInt(answer);
-    rl.close();
-});
+let rules: number[] = [];
+rl.question("How many numbers?\n", (answer1) => {
+    rl.question("Select buzzwords [y/n]:\nFIZZ?\n", (answer2) => {
+        rl.question("BUZZ?\n", (answer3) => {
+            rl.question("BANG?\n", (answer4) => {
+                rl.question("BONG?\n", (answer5) => {
+                    rl.question("FEZZ?\n", (answer6) => {
+                        rl.question("REV?\n", (answer7) => {
+                            n = parseInt(answer1);
+                            if (answer2 === "y")
+                                rules.push(FIZZ);
+                            if (answer3 === "y")
+                                rules.push(BUZZ);
+                            if (answer4 === "y")
+                                rules.push(BANG);
+                            if (answer5 === "y")
+                                rules.push(BONG);
+                            if (answer6 === "y")
+                                rules.push(FEZZ);
+                            if (answer7 === "y")
+                                rules.push(REV);
 
-rl.question("How many buzz words?\n", (answer) => {
-    count = parseInt(answer);
-    rl.close();
+                            fizzbuzz(n, rules);
+                            rl.close();
+                        });
+                    });
+                });
+            });
+        });
+    });
 });
